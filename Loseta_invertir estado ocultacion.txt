@@ -1,0 +1,38 @@
+// Asignar loseta a variable por su ID
+var loseta = canvas.tiles.get("mE8tMNzBiJEGupvc");
+
+// Leer valor actual de la loseta
+var actV = loseta.document.alpha;
+
+// Crear funcion de tiempo de espera
+const wait = async (ms) => new Promise((resolve)=> setTimeout(resolve, ms));
+
+var pasos = 20; // cantidad de pasos
+var totalT = 2000; // Tiempo total en ms
+var intT = totalT/pasos; // intervalo de tiempo por paso
+var totalV = 1; // cambio total de valor
+var intV = totalV/pasos; // intervalo de valor por paso
+var inicial = 1; // valor estado inicial
+var sentido_horario = false;
+
+// Según valor actual, modificar valor total en tiempo total
+// pasos de intervalo de valor cada intervalo de tiempo
+if (actV == inicial){
+  for (let i=1;i<(pasos+1);i++){
+    await wait(intT);
+    if (sentido_horario){
+      loseta.document.update({alpha : inicial+(intV*i)});
+    } else {
+      loseta.document.update({alpha : inicial-(intV*i)});
+    }
+  }
+} else {
+  for (let i=(pasos-1);i>-1;i--){
+    await wait(intT);
+    if (sentido_horario){
+      loseta.document.update({alpha : inicial+(intV*i)});
+    } else {
+      loseta.document.update({alpha : inicial-(intV*i)});
+    }
+  }
+}
